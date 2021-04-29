@@ -33,14 +33,11 @@ app.get('/', (req, res)=>{
 })
 
 app.post('/signin', (req, res) =>{
-  bcrypt.compare("hiii", '$2a$10$haWBui1vnun4j02fxtY5KOY/1tvnH18Jybe6CAYfwVxdiwoK1bYOq', function(err, res) {
-    // res == true
-    console.log(res);
-  });
+  
   if (req.body.email === database.users[0].email &&
       req.body.password === database.users[0].password
     )
-    {res.json("success")}
+    {res.json(database.users[0])}
   else {
     res.status(400).json('error signing in')
   }
@@ -91,6 +88,6 @@ app.put('/image', (req, res) => {
     res.status(404).json("User not found");
   }
 })
-app.listen(3000, ()=>{
+app.listen(3001, ()=>{
   console.log('hey its working!');
 })
