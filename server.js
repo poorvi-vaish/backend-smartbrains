@@ -7,13 +7,15 @@ const register = require("./controllers/Register");
 const { handleSignin } = require("./controllers/signin");
 const { handleProfile } = require("./controllers/profile");
 const { handleImage, handleAPIcall } = require("./controllers/image");
-
+const dotenv = require ('dotenv');
+dotenv.config()
+var pass = process.env.DATABASE_PASS;
 const db = knex({
   client: "pg",
   connection: {
     host: "127.0.0.1",
     user: "postgres",
-    password: "newPassword",
+    password: pass,
     database: "smart-brain",
   },
 });
@@ -41,6 +43,6 @@ app.post("/imageurl", (req, res) => {
   handleAPIcall(req, res);
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("hey its working!");
 });
